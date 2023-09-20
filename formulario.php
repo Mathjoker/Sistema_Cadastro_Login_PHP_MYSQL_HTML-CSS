@@ -1,3 +1,32 @@
+<?php
+
+    require_once('conexao.php');
+    
+
+    if(isset($_POST['submit'])){
+
+
+        $nome = $_POST['nome'];
+        $senha = $_POST['senha'];
+        $email = $_POST['email'];
+        $tel = $_POST['tel'];
+        $sexo = $_POST['genero'];
+        $dataNasc = $_POST['data_nascimento'];
+        $cidade = $_POST['cidade'];
+        $estado = $_POST['estado'];
+        $endereco = $_POST['endereco'];
+
+        $stmt = $conexao->prepare("INSERT INTO usuarios(nome, senha, email, telefone, sexo, data_nasc, cidade, estado, endereco) 
+        VALUES ('$nome', '$senha', '$email', '$tel', '$sexo', '$dataNasc', '$cidade', '$estado', '$endereco')");
+
+        $stmt->execute();
+
+        header('Location: login.php');
+        exit;
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +36,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="home.php">Voltar</a>
     <div class="box">
-        <form action="">
+        <form action="formulario.php" method="POST">
             <fieldset>
                 <legend><strong>Fórmulario de Clientes</strong></legend>
                 <br>
                 <div class="inputBox">
                     <input type="text" name="nome" id="nome" class="inputUser" required>
                     <label class="labelInput" for="nome">Nome completo</label>
+                </div>
+                <br><br>
+                <div class="inputBox">
+                    <input type="password" name="senha" id="senha" class="inputUser" required>
+                    <label class="labelInput" for="senha">Senha</label>
                 </div>
                 <br><br>
                 <div class="inputBox">
